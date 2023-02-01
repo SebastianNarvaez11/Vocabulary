@@ -8,10 +8,10 @@ import useSWRImmutable from 'swr/immutable'
 export const useCategories = (url: string, config: SWRConfiguration = {}) => {
 
     // esta forma revalida los datos por: estado, focus o reconeccion
-    // const { data, error } = useSWR<ICategory[]>(`/api${url}`, config)
+    const { data, error } = useSWR<ICategory[]>(`/api${url}`, config)
 
     // de esta forma solo valida al renderizar el componente
-    const { data, error } = useSWRImmutable<ICategory[]>(`/api${url}`, config)
+    // const { data, error } = useSWRImmutable<ICategory[]>(`/api${url}`, config)
 
     return {
         categories: data || [],

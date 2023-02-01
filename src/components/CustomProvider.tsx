@@ -1,8 +1,8 @@
+import { FC, ReactNode, useEffect } from "react"
 import { useRouter } from "next/router"
 import { useAppDispatch } from "../store/hooks"
 import { getCurrentUser } from "../store/thunks"
 import Cookies from "js-cookie"
-import { FC, ReactNode, useEffect } from "react"
 
 interface Props {
   children: ReactNode

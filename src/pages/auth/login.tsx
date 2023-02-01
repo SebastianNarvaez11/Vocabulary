@@ -43,11 +43,11 @@ const LoginPage = () => {
 
     return (
         <AuthLayout title="Iniciar Sesion" description='Inicia sesion para aprender vocabulario en ingles'>
-            <Box sx={{ width: 350, padding: '10px 20px' }}>
+            <Box sx={{ margin: '20px auto', maxWidth: 400 }}>
                 <form onSubmit={handleSubmit(onLogin)} noValidate>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Typography variant='h1' component="h1">Iniciar Sesión</Typography>
+                            <Typography variant='h1' component="h1" sx={{ fontSize: { xs: 30, sm: 40, md: 60 } }}>Iniciar Sesión</Typography>
                         </Grid>
 
                         <Grid item xs={12}>
@@ -83,7 +83,7 @@ const LoginPage = () => {
                             {isLoading ?
                                 <CircularProgress />
                                 :
-                                <Button color="primary" size='large' fullWidth type='submit'>
+                                <Button color="primary" size='large' variant="outlined" fullWidth type='submit'>
                                     Ingresar
                                 </Button>
                             }

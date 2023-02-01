@@ -1,17 +1,26 @@
 import { Box, Typography, Grid, CircularProgress } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star';
 import { MainLayout } from "@/components/layouts"
-import { CategoryCard } from '@/components/categorys';
+import { CategoryCard } from '@/components/categories';
 import { useCategories } from '@/hooks';
+import { useEffect } from 'react';
+import { useAppDispatch } from '@/store/hooks';
+import { clean_state_words } from '@/store/slices/wordSlice';
 
-const Home = () => {
+const HomePage = () => {
 
-  const { categories, isLoading } = useCategories('/categories')
+  const { categories, isLoading } = useCategories('/categories', {revalidateOnFocus: false})
+  const dispatch = useAppDispatch()
 
-  // estamos probando SWR
+
+  
+  useEffect(() => {
+    dispatch(clean_state_words())
+  }, [])
+  
 
   return (
-    <MainLayout title="Aprende Vocubulario" description="aprende vocabulario en ingles">
+    <MainLayout title="Aprende Vocabulario" description="aprende vocabulario en ingles">
       <Box>
         <Typography variant="h1" fontSize={40} fontWeight={400} color='#494969'>Aprender vocabulario</Typography>
       </Box>
@@ -29,7 +38,7 @@ const Home = () => {
         :
         <Grid container spacing={1} marginTop={1}>
           {categories.map(category => (
-            <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Grid key={category._id} item xs={12} sm={6} md={4} lg={3}>
               <CategoryCard key={category._id} category={category} />
             </Grid>
           ))}
@@ -39,4 +48,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default HomePage

@@ -44,7 +44,7 @@ const getCurrentUser = async (req: NextApiRequest, res: NextApiResponse<Data>) =
     const { _id, name, email, status } = user
 
     return res.status(200).json({
-        token: await createToken(_id, email, status),
+        token: await createToken(_id, email),
         user: {
             email,
             name

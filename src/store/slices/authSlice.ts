@@ -1,7 +1,7 @@
 import { ILoginResponse } from '@/interfaces'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface IAuthState {
+interface IStateAuth {
     isLoggedIn: boolean,
     user?: {
         name: string,
@@ -9,7 +9,7 @@ interface IAuthState {
     }
 }
 
-const initialState: IAuthState = {
+const initialState: IStateAuth = {
     isLoggedIn: false,
     user: undefined
 }

@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { LogoutOutlined } from "@mui/icons-material"
+import { LogoutOutlined, ArrowBack } from "@mui/icons-material"
 import { AppBar, Toolbar, Typography, Box, IconButton } from "@mui/material"
 import { useAppSelector } from "@/store/hooks"
 import Cookies from "js-cookie"
@@ -24,10 +24,15 @@ export const Navbar = () => {
             <Toolbar >
 
                 <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                    <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+                    <Link href="/home" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
                         <Typography fontSize={25} fontWeight={400} color='#494969' variant="h6">Vocubulary</Typography>
                     </Link>
                 </Box>
+
+                <IconButton sx={{ display: { xs: 'flex', sm: 'none' } }} onClick={() => router.push('/home')}>
+                    <ArrowBack />
+                    <Typography color='#494969' marginLeft={1}>Regresar</Typography>
+                </IconButton>
 
 
                 <Box flex={1} />

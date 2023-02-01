@@ -58,6 +58,7 @@ const registerUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => 
     try {
         await newUser.save({ validateBeforeSave: true })
     } catch (error) {
+        await db.disconnect()
         return res.status(500).json({ message: 'Error al registrar usuario' })
     }
 

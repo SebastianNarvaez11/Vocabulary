@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-const vocabularyApi = axios.create({
+export const vocabularyApi = axios.create({
     baseURL: '/api',
 })
-
-export default vocabularyApi

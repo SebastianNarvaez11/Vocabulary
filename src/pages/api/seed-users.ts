@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { db, initialData } from '../../database'
-import { WordModel } from '@/models'
+import { UserModel } from '@/models'
 
 type Data = {
   message: string
@@ -11,8 +11,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   try {
     await db.connect()
 
-    await WordModel.deleteMany()
-    await WordModel.insertMany(initialData.words)
+    await UserModel.deleteMany()
+    await UserModel.insertMany(initialData.users)
     
     await db.disconnect()
 

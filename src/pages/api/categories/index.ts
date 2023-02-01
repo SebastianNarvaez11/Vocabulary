@@ -1,6 +1,8 @@
+import mongoose from 'mongoose';
 import { db } from '@/database';
 import { ICategory } from '@/interfaces';
 import { CategoryModel, WordModel } from '@/models';
+import { getIdToken } from '@/utils';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data =
@@ -19,14 +21,16 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
 }
 
 
-
 const getCategories = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
-    console.log('cargando categorias');
+    const user_id = await getIdToken(req.cookies.token!)
 
     try {
         await db.connect()
         const categories = await CategoryModel.aggregate([
+            {
+                $match: { user: new mongoose.Types.ObjectId(user_id) }//filtramos solo las categorias del usuario
+            },
             {
                 // Utilizamos el operador $lookup para hacer un "join" entre las colecciones de categories y words
                 $lookup: {
@@ -37,18 +41,11 @@ const getCategories = async (req: NextApiRequest, res: NextApiResponse<Data>) =>
                 }
             },
             {
-                // Utilizamos el operador $addFields para añadir un campo "wordCount" con la cantidad de palabras relacionadas
-                $addFields: {
-                    wordCount: { $size: "$words" }
-                }
-            },
-            {
-                // Utilizamos el operador $project para excluir los campos que no queremos en del resultado final
+                // Utilizamos el operador $project para excluir los campos que no queremos en el resultado final
                 $project: {
-                    words: 0,
-                    __v: 0,
-                    createdAt: 0,
-                    updatedAt: 0
+                    words: { points: 1 },
+                    name: 1,
+                    icon: 1
                 }
             }
         ]).exec()
@@ -59,6 +56,8 @@ const getCategories = async (req: NextApiRequest, res: NextApiResponse<Data>) =>
 
 
     } catch (error) {
+        console.log(error);
+        await db.disconnect()
         return res.status(400).json({ message: 'ocurrio un error' })
     }
 }

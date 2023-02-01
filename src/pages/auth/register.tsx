@@ -41,10 +41,10 @@ const RegisterPage = () => {
     return (
         <AuthLayout title="Registrarse" description="Registrate para aprender vocabulario en ingles">
             <form onSubmit={handleSubmit(onRegister)} noValidate>
-                <Box sx={{ width: 350, padding: '10px 20px' }}>
+                <Box sx={{ margin: '20px auto', maxWidth: 400 }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Typography variant="h1">Registrarse</Typography>
+                            <Typography variant="h1" sx={{ fontSize: { xs: 30, sm: 40, md: 60 } }}>Registrarse</Typography>
                         </Grid>
 
                         <Grid item xs={12}>
@@ -91,7 +91,7 @@ const RegisterPage = () => {
                             {isLoading ?
                                 <CircularProgress />
                                 :
-                                <Button color="primary" size='large' fullWidth type='submit'>
+                                <Button color="primary" size='large' variant="outlined" fullWidth type='submit'>
                                     Registrarse
                                 </Button>
                             }

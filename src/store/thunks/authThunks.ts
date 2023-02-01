@@ -1,10 +1,10 @@
 import axios from 'axios'
-import vocabularyApi from "@/apis/vocabularyApi";
+import { vocabularyApi } from "@/apis";
 import { AppDispatch } from "../store";
 import { ILoginResponse } from "@/interfaces";
 import Cookies from "js-cookie";
 import { login } from "../slices/authSlice";
-import { Toast } from '@/utils';
+import toast from 'react-hot-toast';
 import { NextRouter } from 'next/router';
 
 
@@ -18,9 +18,9 @@ export const loginUser = (email: string, password: string) => async (dispatch: A
 
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            Toast.fire({ icon: 'error', title: error.response?.data.message })
+            toast.error(error.response?.data.message);
         } else {
-            Toast.fire({ icon: 'error', title: 'Error en el proceso de autenticacion' })
+            toast.error('Error en el proceso de autenticacion');
         }
         return false
     }
@@ -39,9 +39,9 @@ export const registerUser = (name: string, email: string, password: string) => a
 
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            Toast.fire({ icon: 'error', title: error.response?.data.message })
+            toast.error(error.response?.data.message);
         } else {
-            Toast.fire({ icon: 'error', title: 'Error en el proceso de registro' })
+            toast.error('Error en el proceso de registro');
         }
         return false
     }
