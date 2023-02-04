@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
 import { db } from '@/database';
-import { ICategory } from '@/interfaces';
+import { IResponseGetCategories } from '@/interfaces';
 import { CategoryModel, WordModel } from '@/models';
 import { getIdToken } from '@/utils';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data =
     | { message: string }
-    | ICategory[]
+    | IResponseGetCategories
 
 export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
 
@@ -50,14 +50,17 @@ const getCategories = async (req: NextApiRequest, res: NextApiResponse<Data>) =>
             }
         ]).exec()
 
+        const easyWords = await WordModel.countDocuments({ user: user_id, points: 2 })
+
         await db.disconnect()
 
-        return res.status(200).json(categories)
+
+        return res.status(200).json({categories, easyWords})
 
 
     } catch (error) {
         console.log(error);
         await db.disconnect()
-        return res.status(400).json({ message: 'ocurrio un error' })
+        return res.status(500).json({ message: 'ocurrio un error' })
     }
 }

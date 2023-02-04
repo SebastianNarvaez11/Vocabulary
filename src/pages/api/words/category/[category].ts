@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const user = await getIdToken(req.cookies.token!) //user id
 
     if(!isValidObjectId(category)){
-        res.status(400).json({ message: 'No es una categoria valida' })
+        return res.status(400).json({ message: 'No es una categoria valida' })
     }
 
     await db.connect()
@@ -23,21 +23,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     await db.disconnect()
 
     if(!existCategory){
-        res.status(400).json({ message: 'No existe esa categoria' })
+        return res.status(400).json({ message: 'No existe esa categoria' })
     }
 
 
     try {
         await db.connect()
         const words = await WordModel.find({ user, category })          //filtramos las palabras que sean de ese usuario y esa categoria
-            .select('english spanish image points current_review next_review').lean()
+            .select('english spanish image points').lean()
 
         await db.disconnect()
 
         res.status(200).json(selectIdealWords(words))
     } catch (error) {
         await db.disconnect()
-        res.status(500).json({ message: 'Ocurrio un error' })
+        return res.status(500).json({ message: 'Ocurrio un error' })
     }
 
 }

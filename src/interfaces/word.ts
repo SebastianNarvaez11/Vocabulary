@@ -3,12 +3,22 @@ export interface IWord {
     spanish: string,
     english: string,
     image?: string,
-    user: string,
-    category: string,
+    user?: string,
+    category?: string,
     points: number
-    current_review: number,
-    next_review: number,
+    current_review?: number,
+    next_review?: number,
 
     createdAt?: string,
     updatedAt?: string
+}
+
+
+export interface ISeedWord {
+    spanish: string,
+    english: string,
+    image?: string,
+    points: number
+    current_review: number,
+    next_review: number
 }

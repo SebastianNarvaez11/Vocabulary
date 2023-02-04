@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState } from "react"
+import { FC, useMemo, useState } from "react"
 import { useRouter } from "next/router"
 import { ICategory } from "@/interfaces"
 import { useAppDispatch } from "@/store/hooks"
@@ -21,10 +21,12 @@ export const CategoryCard: FC<Props> = ({ category }) => {
 
     const dispatch = useAppDispatch()
 
-    const onSetCategory = (url: string) => {
-        router.push(`/tests${url}`)
-        dispatch(set_category(category))
-        dispatch(getWords(category._id!))
+    const onSetCategory = async (url: string) => {
+        const isSuccess = await dispatch(getWords(category._id!))
+        if (isSuccess) {
+            dispatch(set_category(category))
+            router.push(`/tests${url}`)
+        }
     }
 
     const easy = useMemo(() => category.words?.filter(word => word.points === 2).length, [category])

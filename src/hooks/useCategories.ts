@@ -1,6 +1,6 @@
-import { ICategory } from './../interfaces';
+import { IResponseGetCategories } from './../interfaces';
 import useSWR, { SWRConfiguration } from 'swr'
-import useSWRImmutable from 'swr/immutable'
+// import useSWRImmutable from 'swr/immutable'
 
 
 // se debe especificar el fetcher como provider en el _app.tsx
@@ -8,13 +8,14 @@ import useSWRImmutable from 'swr/immutable'
 export const useCategories = (url: string, config: SWRConfiguration = {}) => {
 
     // esta forma revalida los datos por: estado, focus o reconeccion
-    const { data, error } = useSWR<ICategory[]>(`/api${url}`, config)
+    const { data, error } = useSWR<IResponseGetCategories>(`/api${url}`, config)
 
     // de esta forma solo valida al renderizar el componente
     // const { data, error } = useSWRImmutable<ICategory[]>(`/api${url}`, config)
 
     return {
-        categories: data || [],
+        categories: data?.categories || [],
+        easyWords : data?.easyWords,
         isLoading: !error && !data,
         isError: error
     }

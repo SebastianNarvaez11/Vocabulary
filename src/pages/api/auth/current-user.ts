@@ -41,7 +41,7 @@ const getCurrentUser = async (req: NextApiRequest, res: NextApiResponse<Data>) =
         return res.status(400).json({ message: 'Usuario bloqueado' })
     }
 
-    const { _id, name, email, status } = user
+    const { _id, name, email } = user
 
     return res.status(200).json({
         token: await createToken(_id, email),

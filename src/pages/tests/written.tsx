@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
+import { KeyboardEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Box, Typography, CircularProgress, Card, CardActionArea, CardContent, TextField, Button, LinearProgress } from "@mui/material";
 import { MainLayout } from '@/components/layouts'
@@ -106,8 +106,9 @@ const WrittenPage = () => {
                     placeholder={`Traduce`}
                     autoComplete='off'
                     value={inputValue}
-                    onChange={(e) => onInputChange(e.target.value)}
+                    onChange={(e) => onInputChange(e.target.value.toLowerCase())}
                     sx={{ marginTop: 2, width: '100%' }}
+                    inputProps={{ style: { textTransform: "lowercase" } }}
                   />
 
 

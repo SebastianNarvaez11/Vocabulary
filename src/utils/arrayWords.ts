@@ -34,12 +34,12 @@ export const selectIdealWords = (words: IWord[]): IWord[] => {
 
     // si todas las palabras ya son faciles se devuelven 20 palabras al azar
     if (easy.length === words.length) {
-        return disorderWords((easy.sort((a, b) => a.current_review - b.current_review)).slice(0, 19)) //ordenar por fecha mas antigua primero
+        return disorderWords((easy.sort((a, b) => a.current_review! - b.current_review!)).slice(0, 19)) //ordenar por fecha mas antigua primero
     }
 
-    easy = easy.sort((a, b) => a.current_review - b.current_review)     //ordenar por fecha mas antigua
-    medium = medium.sort((a, b) => b.current_review - a.current_review) //ordenar por fecha mas reciente
-    hard = hard.sort((a, b) => b.current_review - a.current_review)    //ordenar por fecha mas reciente
+    easy = easy.sort((a, b) => a.current_review! - b.current_review!)     //ordenar por fecha mas antigua
+    medium = medium.sort((a, b) => b.current_review! - a.current_review!) //ordenar por fecha mas reciente
+    hard = hard.sort((a, b) => b.current_review! - a.current_review!)    //ordenar por fecha mas reciente
 
 
     let maxEasy = Math.floor((20 * maxLength) / 100)     //20%
