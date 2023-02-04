@@ -100,7 +100,7 @@ const VisualPage = () => {
 
                       {help &&
                         <Typography align='center' fontWeight={600} variant="h5" component="h5" sx={{ fontSize: { xs: 30, sm: 40, md: 60 } }}>
-                          {words[position].english}
+                          {words[position].spanish}
                         </Typography>
                       }
                     </CardContent>
